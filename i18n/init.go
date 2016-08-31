@@ -8,27 +8,29 @@ import (
 	"path/filepath"
 	"strings"
 
+	"code.cloudfoundry.org/cli/cf/resources"
+
 	"github.com/pivotal-cf-experimental/jibber_jabber"
 
 	go_i18n "github.com/nicksnyder/go-i18n/i18n"
 )
 
 const (
-	DEFAULT_LOCALE   = "en_US"
+	DEFAULT_LOCALE   = "en-us"
 	DEFAULT_LANGUAGE = "en"
 )
 
 var SUPPORTED_LOCALES = map[string]string{
-	"de": "de_DE",
-	"en": "en_US",
-	"es": "es_ES",
-	"fr": "fr_FR",
-	"it": "it_IT",
-	"ja": "ja_JA",
-	"ko": "ko_KO",
-	"pt": "pt_BR",
-	"ru": "ru_RU",
-	"zh": "zh_CN",
+	"de": "de-de",
+	"en": "en-us",
+	"es": "es-es",
+	"fr": "fr-fr",
+	"it": "it-it",
+	"ja": "ja-ja",
+	"ko": "ko-ko",
+	"pt": "pt-br",
+	"ru": "ru-ru",
+	"zh": "zh-cn",
 }
 var RESOUCES_PATH = filepath.Join("cf", "i18n", "resources")
 
@@ -81,7 +83,7 @@ func mustLoadDefaultLocale(packageName, i18nDirname string) string {
 
 	err := loadFromAsset(packageName, i18nDirname, DEFAULT_LOCALE, DEFAULT_LANGUAGE)
 	if err != nil {
-		panic("Could not load en_US language files. God save the queen. " + err.Error())
+		panic("Could not load en-us language files. God save the queen. " + err.Error())
 	}
 
 	return userLocale
