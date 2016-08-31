@@ -15,6 +15,7 @@ import (
 	"go/token"
 
 	"github.com/maximilien/i18n4go/common"
+	"github.com/vito/go-interact/interact"
 )
 
 type Fixup struct {
@@ -55,16 +56,26 @@ func (fix *Fixup) Printf(msg string, a ...interface{}) (int, error) {
 
 func (fix *Fixup) Run() error {
 	//FIND PROBLEMS HERE AND RETURN AN ERROR
-	source, err := fix.findSourceStrings()
-	fix.Source = source
-
-	if err != nil {
-		fmt.Println(fmt.Sprintf("Couldn't find any source strings: %s", err.Error()))
-		return err
+	var source map[string]int
+	var err error
+	if fix.options.FixupSourceLanguageFile == "" {
+		source, err = fix.findSourceStrings()
+		fix.Source = source
+		if err != nil {
+			fmt.Println(fmt.Sprintf("Couldn't find any source strings: %s", err.Error()))
+			return err
+		}
+	} else {
+		source, err = fix.readFromTranslationFile(fix.options.FixupSourceLanguageFile)
+		fix.Source = source
+		if err != nil {
+			fmt.Println(fmt.Sprintf("Couldn't read from %s: %s", fix.options.FixupSourceLanguageFile, err.Error()))
+			return err
+		}
 	}
 
 	locales := findTranslationFiles(".")
-	englishFiles, ok := locales["en_US"]
+	englishFiles, ok := locales["en-us"]
 	if !ok {
 		fmt.Println("Unable to find english translation files")
 		return errors.New("Unable to find english translation files")
@@ -72,8 +83,8 @@ func (fix *Fixup) Run() error {
 
 	englishFile := englishFiles[0]
 	if englishFile == "" {
-		fmt.Println("Could not find an i18n file for locale: en_US")
-		return errors.New("Could not find an i18n file for locale: en_US")
+		fmt.Println("Could not find an i18n file for locale: en-us")
+		return errors.New("Could not find an i18n file for locale: en-us")
 	}
 
 	englishStringInfos, err := fix.findI18nStrings(englishFile)
@@ -85,7 +96,7 @@ func (fix *Fixup) Run() error {
 
 	//Check english to all other files before source
 	for locale, i18nFile := range locales {
-		if locale != "en_US" {
+		if locale != "en-us" {
 			foreignStringInfos, _ := fix.findI18nStrings(i18nFile[0])
 			foreignAdditionalTranslations := getAdditionalForeignTranslations(englishStringInfos, foreignStringInfos)
 
@@ -119,14 +130,14 @@ func (fix *Fixup) Run() error {
 				updated := false
 
 				for !escape {
-					fmt.Printf("Is the string \"%s\" a new or updated string? [new/upd]\n", newUpdatedTranslation)
-
-					_, err := fmt.Scanf("%s\n", &input)
+					msg := fmt.Sprintf("Is the string \"%s\" a new or updated string? [New/upd]", newUpdatedTranslation)
+					strAnsDefault := "new"
+					err = interact.NewInteraction(msg).Resolve(&strAnsDefault)
 					if err != nil {
-						panic(err)
+						return err
 					}
 
-					input = strings.ToLower(input)
+					input = strings.ToLower(strAnsDefault)
 
 					switch input {
 					case "new":
@@ -252,6 +263,27 @@ func (fix *Fixup) findSourceStrings() (sourceStrings map[string]int, err error) 
 	return
 }
 
+func (fix *Fixup) readFromTranslationFile(languageFile string) (map[string]int, error) {
+	sourceStrings := make(map[string]int)
+
+	file, err := ioutil.ReadFile(languageFile)
+	if err != nil {
+		return sourceStrings, err
+	}
+
+	var data []common.I18nStringInfo
+	err = json.Unmarshal(file, &data)
+	if err != nil {
+		return sourceStrings, err
+	}
+
+	for _, stringInfo := range data {
+		sourceStrings[stringInfo.ID]++
+	}
+
+	return sourceStrings, nil
+}
+
 func (fix *Fixup) findI18nStrings(i18nFile string) (i18nStrings map[string]common.I18nStringInfo, err error) {
 	i18nStrings = make(map[string]common.I18nStringInfo)
 
@@ -351,7 +383,7 @@ func updateTranslations(localMap map[string]common.I18nStringInfo, localeFile st
 	for key, value := range updTranslations {
 		fmt.Println("\t", key)
 
-		if locale == "en_US" {
+		if locale == "en-us" {
 			localMap[value] = common.I18nStringInfo{ID: value, Translation: value}
 		} else {
 			localMap[value] = common.I18nStringInfo{ID: value, Translation: localMap[key].Translation, Modified: true}

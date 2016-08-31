@@ -39,6 +39,8 @@ type Options struct {
 	InitCodeSnippetFilenameFlag string
 
 	QualifierFlag string
+
+	FixupSourceLanguageFile string
 }
 
 type I18nStringInfo struct {

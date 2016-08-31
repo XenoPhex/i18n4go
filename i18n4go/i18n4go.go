@@ -214,8 +214,8 @@ func init() {
 	flag.BoolVar(&options.HelpFlag, "h", false, "prints the usage")
 	flag.BoolVar(&options.LongHelpFlag, "-help", false, "prints the usage")
 
-	flag.StringVar(&options.SourceLanguageFlag, "source-language", "en", "the source language of the file, typically also part of the file name, e.g., \"en_US\"")
-	flag.StringVar(&options.LanguagesFlag, "languages", "", "a comma separated list of valid languages with optional territory, e.g., \"en, en_US, fr_FR, es\"")
+	flag.StringVar(&options.SourceLanguageFlag, "source-language", "en", "the source language of the file, typically also part of the file name, e.g., \"en-us\"")
+	flag.StringVar(&options.LanguagesFlag, "languages", "", "a comma separated list of valid languages with optional territory, e.g., \"en, en-us, fr_FR, es\"")
 	flag.StringVar(&options.GoogleTranslateApiKeyFlag, "google-translate-api-key", "", "[optional] your public Google Translate API key which is used to generate translations (charge is applicable)")
 
 	flag.BoolVar(&options.VerboseFlag, "v", false, "verbose mode where lots of output is generated during execution")
@@ -242,7 +242,7 @@ func init() {
 
 	flag.StringVar(&options.IgnoreRegexpFlag, "ignore-regexp", ".*test.*", "a perl-style regular expression for files to ignore, e.g., \".*test.*\"")
 
-	flag.StringVar(&options.LanguageFilesFlag, "language-files", "", `[optional] a comma separated list of target files for different languages to compare,  e.g., \"en, en_US, fr_FR, es\"	                                                                  if not specified then the languages flag is used to find target files in same directory as source`)
+	flag.StringVar(&options.LanguageFilesFlag, "language-files", "", `[optional] a comma separated list of target files for different languages to compare,  e.g., \"en, en-us, fr_FR, es\"	                                                                  if not specified then the languages flag is used to find target files in same directory as source`)
 
 	flag.StringVar(&options.I18nStringsFilenameFlag, "i18n-strings-filename", "", "a JSON file with the strings that should be i18n enabled, typically the output of -extract-strings command")
 	flag.StringVar(&options.I18nStringsDirnameFlag, "i18n-strings-dirname", "", "a directory with the extracted JSON files, using -output-match-package with -extract-strings this directory should match the input files package name")
@@ -251,6 +251,8 @@ func init() {
 	flag.StringVar(&options.InitCodeSnippetFilenameFlag, "init-code-snippet-filename", "", "[optional] the path to a file containing the template snippet for the code that is used for go-i18n initialization")
 
 	flag.StringVar(&options.QualifierFlag, "q", "", "[optional] the qualifier string that is used when using the T(...) function, default to nothing but could be set to `i18n` so that all calls would be: i18n.T(...)")
+
+	flag.StringVar(&options.FixupSourceLanguageFile, "source-language-file", "", "[optional] path to source language file")
 
 	flag.Parse()
 }
@@ -317,7 +319,7 @@ usage: i18n4go -c checkup
   -c merge-strings           the merge strings command which merges multiple <filename>.go.<language>.json files into a <language>.all.json
 
   -r                         [optional] recursesively combine files from all subdirectories
-  --source-language          [optional] the source language of the file, typically also part of the file name, e.g., "en_US" (default to 'en')
+  --source-language          [optional] the source language of the file, typically also part of the file name, e.g., "en-us" (default to 'en')
 
   -d                         the directory containing the json files to combine
 
@@ -326,10 +328,10 @@ usage: i18n4go -c checkup
   -c create-translations     the create translations command
 
   --google-translate-api-key [optional] your public Google Translate API key which is used to generate translations (charge is applicable)
-  --source-language          [optional] the source language of the file, typically also part of the file name, e.g., \"en_US\"
+  --source-language          [optional] the source language of the file, typically also part of the file name, e.g., \"en-us\"
 
   -f                         the source translation file
-  --languages                a comma separated list of valid languages with optional territory, e.g., \"en, en_US, fr_FR, es\"
+  --languages                a comma separated list of valid languages with optional territory, e.g., \"en, en-us, fr_FR, es\"
   -o                         the output directory where the newly created translation files will be placed
 
   VERIFY-STRINGS:
@@ -340,9 +342,9 @@ usage: i18n4go -c checkup
 
   -f                         the source translation file
 
-  --language-files           a comma separated list of target files for different languages to compare, e.g., "en, en_US, fr_FR, es"
+  --language-files           a comma separated list of target files for different languages to compare, e.g., "en, en-us, fr_FR, es"
                              if not specified then the languages flag is used to find target files in same directory as source
-  --languages                a comma separated list of valid languages with optional territory, e.g., "en, en_US, fr_FR, es"
+  --languages                a comma separated list of valid languages with optional territory, e.g., "en, en-us, fr_FR, es"
 
   SHOW-MISSING-STRINGS:
 
@@ -359,6 +361,8 @@ usage: i18n4go -c checkup
   FIXUP:
 
   -c fixup                   the fixup command which interactively lets users add, update, or remove translations keys from code and resource files.
+
+	--source-language-file		 target language file to read translations from, instead of parsing through all the "T" functions
 `
 	fmt.Println(fmt.Sprintf("%s\nVersion %s", usageString, VERSION))
 }
