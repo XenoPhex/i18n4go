@@ -1,15 +1,15 @@
-i18n Tooling for the Go Language [![Build Status](https://travis-ci.org/maximilien/i18n4go.svg?branch=master)](https://travis-ci.org/maximilien/i18n4go#)
+i18n Tooling for the Go Language [![Build Status](https://travis-ci.org/XenoPhex/i18n4go.svg?branch=master)](https://travis-ci.org/maximilien/i18n4go#)
 ==============================
 
-[![Join the chat at https://gitter.im/maximilien/i18n4go](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/maximilien/i18n4go?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![dWOpen Slack](https://raw.githubusercontent.com/maximilien/i18n4go/master/slack/slack.png)](https://dwopen.slack.com/messages/i18n4go/)
+[![Join the chat at https://gitter.im/XenoPhex/i18n4go](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/maximilien/i18n4go?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![dWOpen Slack](https://raw.githubusercontent.com/maximilien/i18n4go/master/slack/slack.png)](https://dwopen.slack.com/messages/i18n4go/)
 
 This is a general purpose internationalization (i18n) tooling for Go language (Golang) programs. It allows you to prepare Go language code for internationalization and localization (l10n). You can also use it to help maintain the resulting i18n-enabled Golang code so that it remains internationalized. This tool was extracted while we worked on enabling the [Cloud Foundry CLI](https://github.com/cloudfoundry/cli) with i18n support.
 
-This tool is licensed under the [Apache 2.0 OSS license](https://github.com/maximilien/i18n4go/blob/master/LICENSE). We'd love to hear from you if you are using, attempting to use, or planning to use this tool. 
+This tool is licensed under the [Apache 2.0 OSS license](https://github.com/XenoPhex/i18n4go/blob/master/LICENSE). We'd love to hear from you if you are using, attempting to use, or planning to use this tool. 
 
 Two additional ways, besides Gitter or Slack chat above, to contact us:
 
-1. Feel free to [open an issue (good or bad)](https://github.com/maximilien/i18n4go/issues) here on Github.
+1. Feel free to [open an issue (good or bad)](https://github.com/XenoPhex/i18n4go/issues) here on Github.
 2. Send email to `i18n4go` at the Gmail domain.
 
 ## Getting Started
@@ -18,7 +18,7 @@ Two additional ways, besides Gitter or Slack chat above, to contact us:
 ### Overview Presentations, Talks, Blogs
 ----------------------------------------
 
-* Talk at [GoSF Meetup](http://www.meetup.com/golangsf/events/220603955/) on April, 2015. Slides ([PDF](https://github.com/maximilien/presentations/blob/master/2015/i18n4go-gosf-meetup/releases/i18n4go-v0.4.1.pdf) and [PPTX](https://github.com/maximilien/presentations/blob/master/2015/i18n4go-gosf-meetup/releases/i18n4go-v0.4.1.pptx)), [demo](https://github.com/maximilien/i18n4go/tree/master/examples/demo1)
+* Talk at [GoSF Meetup](http://www.meetup.com/golangsf/events/220603955/) on April, 2015. Slides ([PDF](https://github.com/XenoPhex/presentations/blob/master/2015/i18n4go-gosf-meetup/releases/i18n4go-v0.4.1.pdf) and [PPTX](https://github.com/maximilien/presentations/blob/master/2015/i18n4go-gosf-meetup/releases/i18n4go-v0.4.1.pptx)), [demo](https://github.com/maximilien/i18n4go/tree/master/examples/demo1)
 
 * Blog post on July, 2015 at IBM's developerWorks: [i18n4go: Taking your Golang Projects Global for Fun or Profits](https://developer.ibm.com/open/2015/07/18/i18n4go-taking-golang-projects-global-fun-profits/)
 
@@ -28,7 +28,7 @@ Two additional ways, besides Gitter or Slack chat above, to contact us:
 Assuming you have a valid [Golang 1.4.2](https://golang.org/dl/) or [later](https://golang.org/dl/) installed for your system, you can quickly get the latest `i18n4go` executable by running the following `go` command:
 
 ```
-$ go get github.com/maximilien/i18n4go/i18n4go
+$ go get github.com/XenoPhex/i18n4go/i18n4go
 ```
 
 This will build and place the `i18n4go` executable built for your operating system in your `$GOPATH/bin` directory.
@@ -39,10 +39,10 @@ This will build and place the `i18n4go` executable built for your operating syst
 Clone this repo and build it. Using the following commands on a Linux or Mac OS X system:
 
 ```
-$ mkdir -p i18n4go/src/github.com/maximilien
+$ mkdir -p i18n4go/src/github.com/XenoPhex
 $ export GOPATH=$(pwd)/i18n4go:$GOPATH
-$ cd i18n4go/src/github.com/maximilien
-$ git clone https://github.com/maximilien/i18n4go.git
+$ cd i18n4go/src/github.com/XenoPhex
+$ git clone https://github.com/XenoPhex/i18n4go.git
 $ cd i18n4go
 $ ./bin/build
 ```
@@ -68,15 +68,15 @@ $ bin/test
  Formatting packages...
 
  Integration Testing packages:
-ok  	github.com/maximilien/i18n4go/integration/checkup	1.571s
-ok  	github.com/maximilien/i18n4go/integration/create_translations	1.542s
-ok  	github.com/maximilien/i18n4go/integration/extract_strings	1.694s
-ok  	github.com/maximilien/i18n4go/integration/fixup	1.657s
-ok  	github.com/maximilien/i18n4go/integration/merge_strings	1.645s
-ok  	github.com/maximilien/i18n4go/integration/rewrite_package	1.853s
-ok  	github.com/maximilien/i18n4go/integration/show_missing_strings	1.590s
-?   	github.com/maximilien/i18n4go/integration/test_helpers	[no test files]
-ok  	github.com/maximilien/i18n4go/integration/verify_strings	1.701s
+ok  	github.com/XenoPhex/i18n4go/integration/checkup	1.571s
+ok  	github.com/XenoPhex/i18n4go/integration/create_translations	1.542s
+ok  	github.com/XenoPhex/i18n4go/integration/extract_strings	1.694s
+ok  	github.com/XenoPhex/i18n4go/integration/fixup	1.657s
+ok  	github.com/XenoPhex/i18n4go/integration/merge_strings	1.645s
+ok  	github.com/XenoPhex/i18n4go/integration/rewrite_package	1.853s
+ok  	github.com/XenoPhex/i18n4go/integration/show_missing_strings	1.590s
+?   	github.com/XenoPhex/i18n4go/integration/test_helpers	[no test files]
+ok  	github.com/XenoPhex/i18n4go/integration/verify_strings	1.701s
 
  Vetting packages for potential issues...
 
@@ -92,7 +92,7 @@ The recommended workflow is to use the commands (documented below) in the follow
 
 2. **merge-strings** to create one file and removing what is not needed and strings you do not want to i18n. This could be important and time consuming but to help this process, we've found that it's good to keep a list of all the strings that you do not want to i18n as well as string patterns (as regex). Take a look at the CF CLI [excluded.json](https://github.com/cloudfoundry/cli/blob/master/cf/i18n/excluded.json) for a real world example file you might end up with. The regex in there might be useful to reuse.
 
-3. might need to do 1 again, but using `excluded.json`. The outcome should be the file or files for `en_US` for all the strings that will be i18n for your app. So for instance, if you decide to combine all into one: `en_US.all.json`
+3. might need to do 1 again, but using `excluded.json`. The outcome should be the file or files for `en-us` for all the strings that will be i18n for your app. So for instance, if you decide to combine all into one: `en-us.all.json`
 
 4. **rewrite-package** using the file or files in 3. This will rewrite your code to use the `T(...)` function and also deal with parameters to your strings, using the pattern: `Arg0`, `Arg1`, etc. *NOTE* that this step will rewrite (yes, modify) your code. You can always use `go fmt` so the code will look fine. All files that contain strings that need to be i18n will be rewritten. You can do this step one package at a time.
 
@@ -101,7 +101,7 @@ For instance to create `fr_FR` file(s) for French and every other locale_Languag
 
 6. [optional] **create-translations** with [Google Translate API](https://cloud.google.com/translate/docs). You will need to have a Google Translate API key (*NOTE*: might require you to pay or at least enter your credit card if usage is above some threshold). Generally the strings generated by Google Translate are OK, but not great. They usually require additional work, however, we have found that they can be a good start when sending files to be officially translated by human translator team(s).
 
-7. **verify-strings** this will help you ensure that your translation files, e.g., `en_US.all.json` and `fr_FR.all.json`, and others, all have the same keys. This is *important* since if you are missing a key then for that language you might crash your app. We recommend using this during your build and for CI and not build resulting app in 8 (next step) if this step fails.
+7. **verify-strings** this will help you ensure that your translation files, e.g., `en-us.all.json` and `fr_FR.all.json`, and others, all have the same keys. This is *important* since if you are missing a key then for that language you might crash your app. We recommend using this during your build and for CI and not build resulting app in 8 (next step) if this step fails.
 
 8. package your app with your i18n resource files. The packaging is slightly tricky since one of the great value of Golang is to have one binary file distribution for your app. This means you need to convert your i18n resource files (the JSON files) into binary that can be loaded in code (as source code). We've been using [go-bindata](https://github.com/jteeuwen/go-bindata) for the CF CLI and that seems to work pretty well. See [this script](https://github.com/cloudfoundry/cli/blob/fa7bcb07cdb6c6960f0907022bcef83ec4363a47/bin/generate-language-resources) on how we used it in the CF CLI. Other alternatives exist but we have not tried them.
 
@@ -109,7 +109,7 @@ For instance to create `fr_FR` file(s) for French and every other locale_Languag
 
 ### Typical Workflow Diagram
 
-![Typical i18n4go workflow diagram](https://github.com/maximilien/i18n4go/blob/master/docs/images/typical-workflow.png)
+![Typical i18n4go workflow diagram](https://github.com/XenoPhex/i18n4go/blob/master/docs/images/typical-workflow.png)
 
 ### Help
 --------
@@ -240,7 +240,7 @@ The general usage for `-c merge-strings` command is:
   -d                         the directory containing the json files to combine
   -r                         [optional] recursesively combine files from all subdirectories
 
-  --source-language          [optional] the source language of the file, typically also part of the file name, e.g., "en_US" (default to 'en')
+  --source-language          [optional] the source language of the file, typically also part of the file name, e.g., "en-us" (default to 'en')
 
 ```
 
@@ -353,8 +353,8 @@ The general usage for `-c create-translations` command is:
   -f                         the source translation file
   -o                         the output directory where the newly created translation files will be placed
 
-  --languages                a comma separated list of valid languages with optional territory, e.g., \"en, en_US, fr_FR, es\"
-  --source-language          [optional] the source language of the file, typically also part of the file name, e.g., \"en_US\"
+  --languages                a comma separated list of valid languages with optional territory, e.g., \"en, en-us, fr_FR, es\"
+  --source-language          [optional] the source language of the file, typically also part of the file name, e.g., \"en-us\"
   --google-translate-api-key [optional] your public Google Translate API key which is used to generate translations (charge is applicable)
 
 ```
@@ -362,13 +362,13 @@ The general usage for `-c create-translations` command is:
 The command `-c create-translations` generates copies of the `-source-language` file, one per language specified in the `-languages` flag (seperated by comma).
 
 ```
-$ i18n4go -c create-translations -v -f tmp/cli/i18n/app/en.all.json -source-language en -languages "en_US,fr_FR,es_ES,de_DE" -o tmp/cli/i18n/app/
+$ i18n4go -c create-translations -v -f tmp/cli/i18n/app/en.all.json -source-language en -languages "en-us,fr_FR,es_ES,de_DE" -o tmp/cli/i18n/app/
 
 i18n4go: creating translation files for: tmp/cli/i18n/app/en.all.json
 
-i18n4go: creating translation file copy for language: en_US
-i18n4go: creating translation file: tmp/cli/i18n/app/en_US.all.json
-i18n4go: created default translation file: tmp/cli/i18n/app/en_US.all.json
+i18n4go: creating translation file copy for language: en-us
+i18n4go: creating translation file: tmp/cli/i18n/app/en-us.all.json
+i18n4go: created default translation file: tmp/cli/i18n/app/en-us.all.json
 i18n4go: creating translation file copy for language: fr_FR
 i18n4go: creating translation file: tmp/cli/i18n/app/fr_FR.all.json
 i18n4go: created default translation file: tmp/cli/i18n/app/fr_FR.all.json
@@ -398,8 +398,8 @@ The general usage for `-c verify-strings` command is:
   -f                         the source translation file
 
   --source-language          [optional] the source language of the source translation file (default to 'en')
-  --languages                a comma separated list of valid languages with optional territory, e.g., "en, en_US, fr_FR, es"
-  --language-files           a comma separated list of target files for different languages to compare, e.g., "en, en_US, fr_FR, es"
+  --languages                a comma separated list of valid languages with optional territory, e.g., "en, en-us, fr_FR, es"
+  --language-files           a comma separated list of target files for different languages to compare, e.g., "en, en-us, fr_FR, es"
                              if not specified then the languages flag is used to find target files in same directory as source
 
 ```
@@ -474,7 +474,7 @@ The `fixup` command interactively lets users add, update, or remove translations
 
 The exclude.json file can be used to manage which strings should not be extract with the `extracting-strings` command. In the `excluded.json` file,
 you can specifie string literals to ignore as well as classes of strings using a Perl-style regular expression. We have provided an example file
-[exclude](https://github.com/maximilien/i18n4go/blob/master/example/excluded.json) to demonstrate the string and regexp cases.
+[exclude](https://github.com/XenoPhex/i18n4go/blob/master/example/excluded.json) to demonstrate the string and regexp cases.
 
 ### string literals
 
@@ -574,7 +574,7 @@ Optionally, you can use `bin/run` to compile and run the executable in one step.
 ## Contributing
 ---------------
 
-* We gratefully acknowledge and thank the [current contributors](https://github.com/maximilien/i18n4go/graphs/contributors)
+* We gratefully acknowledge and thank the [current contributors](https://github.com/XenoPhex/i18n4go/graphs/contributors)
 * We welcome any and all contributions as Pull Requests (PR)
 * We also welcome issues and bug report and new feature request. We will address as time permits
 * Follow the steps above in Developing to get your system setup correctly

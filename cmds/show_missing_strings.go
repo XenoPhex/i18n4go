@@ -12,7 +12,7 @@ import (
 	"go/parser"
 	"go/token"
 
-	"github.com/maximilien/i18n4go/common"
+	"github.com/XenoPhex/i18n4go/common"
 )
 
 type ShowMissingStrings struct {
@@ -59,7 +59,7 @@ func (sms *ShowMissingStrings) Run() error {
 
 func (sms *ShowMissingStrings) showMissingStrings() error {
 
-	//Load en_US.all.json
+	//Load en-us.all.json
 
 	stringInfos, err := common.LoadI18nStringInfos(sms.I18nStringsFilename)
 	if err != nil {

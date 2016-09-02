@@ -5,6 +5,11 @@ import (
 	"fmt"
 )
 
+type HelpCategory struct {
+	CategoryName string
+	CommandList  [][]string
+}
+
 func main() {
 	translatedString := "translated"
 
@@ -17,6 +22,17 @@ func main() {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
+
+	data := HelpCategory{
+		CategoryName: "ORG ADMIN:",
+		CommandList: [][]string{
+			{"quotas", "quota", "set-quota"},
+			{"create-quota", "delete-quota", "update-quota"},
+			{"share-private-domain", "unshare-private-domain"},
+		},
+	}
+
+	T(data.CategoryName)
 }
 
 func test49() {

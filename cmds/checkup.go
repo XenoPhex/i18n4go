@@ -12,7 +12,7 @@ import (
 	"go/parser"
 	"go/token"
 
-	"github.com/maximilien/i18n4go/common"
+	"github.com/XenoPhex/i18n4go/common"
 )
 
 type Checkup struct {

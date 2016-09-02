@@ -80,7 +80,7 @@ func i18n_resources_en_us_all_json() ([]byte, error) {
 		0x1b, 0xb9, 0x62, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff, 0x13, 0xa3, 0x6a,
 		0xed, 0x04, 0x01, 0x00, 0x00,
 	},
-		"i18n/resources/en_US.all.json",
+		"i18n/resources/en-us.all.json",
 	)
 }
 
@@ -238,7 +238,7 @@ func AssetNames() []string {
 var _bindata = map[string]func() ([]byte, error){
 	"i18n/resources/de.all.json":      i18n_resources_de_all_json,
 	"i18n/resources/de_DE.all.json":   i18n_resources_de_de_all_json,
-	"i18n/resources/en_US.all.json":   i18n_resources_en_us_all_json,
+	"i18n/resources/en-us.all.json":   i18n_resources_en_us_all_json,
 	"i18n/resources/es.all.json":      i18n_resources_es_all_json,
 	"i18n/resources/es_ES.all.json":   i18n_resources_es_es_all_json,
 	"i18n/resources/fr.all.json":      i18n_resources_fr_all_json,
