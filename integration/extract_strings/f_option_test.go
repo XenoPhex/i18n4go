@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	. "github.com/maximilien/i18n4go/integration/test_helpers"
+	. "github.com/XenoPhex/i18n4go/integration/test_helpers"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
@@ -125,7 +125,7 @@ var _ = Describe("extract-strings -f fileName", func() {
 		})
 	})
 
-	Context("GitHub issue #45: Extract Strings should extract strings string embedded inside a func, inside a func in a return", func() {
+	FContext("GitHub issue #45: Extract Strings should extract strings string embedded inside a func, inside a func in a return", func() {
 		BeforeEach(func() {
 			session := Runi18n("-c", "extract-strings", "-v", "-f", filepath.Join(inputFilesPath, "issue45.go"))
 			Ω(session.ExitCode()).Should(Equal(0))

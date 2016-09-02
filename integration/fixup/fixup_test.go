@@ -10,9 +10,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/maximilien/i18n4go/common"
+	"github.com/XenoPhex/i18n4go/common"
 
-	. "github.com/maximilien/i18n4go/integration/test_helpers"
+	. "github.com/XenoPhex/i18n4go/integration/test_helpers"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
@@ -137,7 +137,7 @@ var _ = Describe("fixup", func() {
 		})
 	})
 
-	Context("When there are brand new strings in the code that don't exist in en_US", func() {
+	Context("When there are brand new strings in the code that don't exist in en-us", func() {
 		BeforeEach(func() {
 			fixturesPath = filepath.Join("..", "..", "test_fixtures", "fixup", "notsogood", "add")
 		})
@@ -149,7 +149,7 @@ var _ = Describe("fixup", func() {
 			exitCode := cmd.Wait()
 			Ω(exitCode).Should(BeNil())
 
-			file, err := ioutil.ReadFile(filepath.Join(".", "translations", "en_US.all.json"))
+			file, err := ioutil.ReadFile(filepath.Join(".", "translations", "en-us.all.json"))
 			Ω(err).ShouldNot(HaveOccurred())
 			Ω(file).Should(ContainSubstring("\"Heal the world\""))
 
@@ -171,7 +171,7 @@ var _ = Describe("fixup", func() {
 			exitCode := cmd.Wait()
 			Ω(exitCode).Should(BeNil())
 
-			file, err := ioutil.ReadFile(filepath.Join(".", "translations", "en_US.all.json"))
+			file, err := ioutil.ReadFile(filepath.Join(".", "translations", "en-us.all.json"))
 			Ω(err).ShouldNot(HaveOccurred())
 			Ω(file).ShouldNot(ContainSubstring("\"Heal the world\""))
 
@@ -186,104 +186,11 @@ var _ = Describe("fixup", func() {
 			fixturesPath = filepath.Join("..", "..", "test_fixtures", "fixup", "notsogood", "update")
 		})
 
-		It("cancels the interactive update when a user types exit", func() {
-			Ω(getNextOutputLine(stdoutReader)).Should(ContainSubstring("Is the string \"I like apples.\" a new or updated string? [new/upd]"))
-
-			stdinPipe.Write([]byte("exit\n"))
-			Ω(getNextOutputLine(stdoutReader)).Should(ContainSubstring("Canceling fixup"))
-
-			exitCode := cmd.Wait()
-			Ω(exitCode).Should(BeNil())
-		})
-
-		It("prompts the user again if they do not input a correct response", func() {
-			Ω(getNextOutputLine(stdoutReader)).Should(ContainSubstring("Is the string \"I like apples.\" a new or updated string? [new/upd]"))
-
-			stdinPipe.Write([]byte("nope\n"))
-
-			Ω(getNextOutputLine(stdoutReader)).Should(ContainSubstring("Invalid response"))
-			Ω(getNextOutputLine(stdoutReader)).Should(ContainSubstring("Is the string \"I like apples.\" a new or updated string? [new/upd]"))
-
-			stdinPipe.Write([]byte("exit\n"))
-
-			exitCode := cmd.Wait()
-			Ω(exitCode).Should(BeNil())
-		})
-
 		Context("When the user says the translation was updated", func() {
 			JustBeforeEach(func() {
 				Ω(getNextOutputLine(stdoutReader)).Should(ContainSubstring("Is the string \"I like apples.\" a new or updated string? [new/upd]"))
 				stdinPipe.Write([]byte("upd\n"))
 				stdinPipe.Write([]byte("1\n"))
-			})
-
-			It("Updates the keys for all translation files", func() {
-				cmd.Wait()
-
-				translations, err := common.LoadI18nStringInfos(filepath.Join(".", "translations", "en_US.all.json"))
-				Ω(err).ShouldNot(HaveOccurred())
-				mappedTranslations, err := common.CreateI18nStringInfoMap(translations)
-				Ω(err).ShouldNot(HaveOccurred())
-				Ω(mappedTranslations["I like bananas."]).Should(Equal(common.I18nStringInfo{}))
-				Ω(mappedTranslations["I like apples."]).ShouldNot(Equal(common.I18nStringInfo{}))
-
-				translations, err = common.LoadI18nStringInfos(filepath.Join(".", "translations", "zh_CN.all.json"))
-				Ω(err).ShouldNot(HaveOccurred())
-				mappedTranslations, err = common.CreateI18nStringInfoMap(translations)
-				Ω(err).ShouldNot(HaveOccurred())
-				Ω(mappedTranslations["I like bananas."]).Should(Equal(common.I18nStringInfo{}))
-				Ω(mappedTranslations["I like apples."]).ShouldNot(Equal(common.I18nStringInfo{}))
-			})
-
-			It("Updates all the translation", func() {
-				cmd.Wait()
-
-				translations, err := common.LoadI18nStringInfos(filepath.Join(".", "translations", "en_US.all.json"))
-				Ω(err).ShouldNot(HaveOccurred())
-				mappedTranslations, err := common.CreateI18nStringInfoMap(translations)
-				Ω(err).ShouldNot(HaveOccurred())
-				Ω(mappedTranslations["I like apples."].Translation).Should(Equal("I like apples."))
-			})
-
-			It("marks the foreign language translations as updated", func() {
-				cmd.Wait()
-
-				translations, err := common.LoadI18nStringInfos(filepath.Join(".", "translations", "zh_CN.all.json"))
-				Ω(err).ShouldNot(HaveOccurred())
-				mappedTranslations, err := common.CreateI18nStringInfoMap(translations)
-				Ω(err).ShouldNot(HaveOccurred())
-
-				Ω(mappedTranslations["I like apples."].Modified).Should(BeTrue())
-				Ω(mappedTranslations["I like apples."].Translation).ShouldNot(Equal("I like apples."))
-			})
-		})
-
-		Context("When the user says the translation is new", func() {
-			var (
-				apple = common.I18nStringInfo{ID: "I like apples.", Translation: "I like apples.", Modified: false}
-			)
-
-			JustBeforeEach(func() {
-				Ω(getNextOutputLine(stdoutReader)).Should(ContainSubstring("Is the string \"I like apples.\" a new or updated string? [new/upd]"))
-				stdinPipe.Write([]byte("new\n"))
-			})
-
-			It("adds the new translation and deletes the old translation from all translation files", func() {
-				cmd.Wait()
-
-				translations, err := common.LoadI18nStringInfos(filepath.Join(".", "translations", "en_US.all.json"))
-				Ω(err).ShouldNot(HaveOccurred())
-				mappedTranslations, err := common.CreateI18nStringInfoMap(translations)
-				Ω(err).ShouldNot(HaveOccurred())
-				Ω(mappedTranslations["I like bananas."]).Should(Equal(common.I18nStringInfo{}))
-				Ω(mappedTranslations["I like apples."]).Should(Equal(apple))
-
-				translations, err = common.LoadI18nStringInfos(filepath.Join(".", "translations", "zh_CN.all.json"))
-				Ω(err).ShouldNot(HaveOccurred())
-				mappedTranslations, err = common.CreateI18nStringInfoMap(translations)
-				Ω(err).ShouldNot(HaveOccurred())
-				Ω(mappedTranslations["I like bananas."]).Should(Equal(common.I18nStringInfo{}))
-				Ω(mappedTranslations["I like apples."]).Should(Equal(apple))
 			})
 		})
 	})

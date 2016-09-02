@@ -4,6 +4,10 @@
         "translation": "translated"
     },
     {
+        "id": "ORG ADMIN:",
+        "translation": "ORG ADMIN:"
+    },
+    {
         "id": "This is a string which has been {{.Translated}}.",
         "translation": "This is a string which has been {{.Translated}}."
     },

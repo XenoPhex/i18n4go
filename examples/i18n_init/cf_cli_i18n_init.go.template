@@ -21,7 +21,7 @@ type Detector interface {
 type JibberJabberDetector struct{}
 
 const (
-	DEFAULT_LOCALE   = "en_US"
+	DEFAULT_LOCALE   = "en-us"
 	DEFAULT_LANGUAGE = "en"
 )
 
@@ -29,7 +29,7 @@ var T goi18n.TranslateFunc
 
 var SUPPORTED_LOCALES = map[string]string{
 	"de": "de_DE",
-	"en": "en_US",
+	"en": "en-us",
 	"es": "es_ES",
 	"fr": "fr_FR",
 	"it": "it_IT",
@@ -105,7 +105,7 @@ func mustLoadDefaultLocale() string {
 
 	err := loadFromAsset(DEFAULT_LOCALE)
 	if err != nil {
-		panic("Could not load en_US language files. God save the queen. \n" + err.Error() + "\n\n")
+		panic("Could not load en-us language files. God save the queen. \n" + err.Error() + "\n\n")
 	}
 
 	return userLocale

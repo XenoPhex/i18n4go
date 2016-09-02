@@ -42,7 +42,7 @@ i18n4go -c merge-strings -v --source-language en -d .
 
 # create translation files
 
-i18n4go -c create-translations -v --source-language en -f en.all.json --languages en_US,fr_FR,es_ES,de_DE,zh_Hans -o i18n/resources
+i18n4go -c create-translations -v --source-language en -f en.all.json --languages en-us,fr_FR,es_ES,de_DE,zh_Hans -o i18n/resources
 
 # generate resource assets
 

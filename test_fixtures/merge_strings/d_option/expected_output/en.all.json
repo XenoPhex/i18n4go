@@ -85,8 +85,8 @@
       "modified": false
    },
    {
-      "id": "the source language of the file, typically also part of the file name, e.g., \"en_US\"",
-      "translation": "the source language of the file, typically also part of the file name, e.g., \"en_US\"",
+      "id": "the source language of the file, typically also part of the file name, e.g., \"en-us\"",
+      "translation": "the source language of the file, typically also part of the file name, e.g., \"en-us\"",
       "modified": false
    },
    {
