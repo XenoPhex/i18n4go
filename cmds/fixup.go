@@ -360,7 +360,7 @@ func addTranslations(localeMap map[string]common.I18nStringInfo, localeFile stri
 	fmt.Printf("Adding these strings to the %s translation file:\n", localeFile)
 
 	for _, id := range addTranslations {
-		localeMap[id] = common.I18nStringInfo{ID: id, Translation: id}
+		localeMap[id] = common.I18nStringInfo{ID: id, Translation: ""}
 		fmt.Println("\t", id)
 	}
 }
